@@ -3,6 +3,9 @@
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 if(getenv('SYMFONY_ON_HEROKU') || getenv('DYNO')) {
+    // setup log output
+    $container->setParameter('logs.production', 'php:://stderr');
+    
     // configure database
     $dsn = getFirstEnvVarFromArray(
         array(
@@ -40,7 +43,7 @@ function populateDatabaseParameters(ContainerBuilder $container, $dsn) {
     $container->setParameter('database_pass', $parameters['pass']);
     $container->setParameter('database_name', substr($parameters['path'],1));
 
-    if($parameters['port']) {
+    if(array_key_exists('port', $parameters)) {
         $container->setParameter('database_port', $parameters['port']);
     }
 
