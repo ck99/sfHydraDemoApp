@@ -4,8 +4,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 if(getenv('SYMFONY_ON_HEROKU') || getenv('DYNO')) {
     // setup log output
-    $container->setParameter('logs.production', 'php:://stderr');
-    
+    $container->setParameter('logs.production', 'php://stderr');
+
     // configure database
     $dsn = getFirstEnvVarFromArray(
         array(
