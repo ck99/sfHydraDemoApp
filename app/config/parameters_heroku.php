@@ -28,7 +28,7 @@ if(!function_exists('populateDatabaseParameters')) {
         $parameters = parse_url($dsn);
         $container->setParameter('database_host', $parameters['host']);
         $container->setParameter('database_user', $parameters['user']);
-        $container->setParameter('database_pass', $parameters['pass']);
+        $container->setParameter('database_password', $parameters['pass']);
         $container->setParameter('database_name', substr($parameters['path'],1));
 
         if(array_key_exists('port', $parameters)) {
