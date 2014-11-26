@@ -33,4 +33,15 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    public function getRootDir()
+    {
+        $dir = getenv("SYMFONY_KERNEL_ROOT_DIR");
+        if ($dir) {
+            return $dir;
+        } else {
+            return parent::getRootDir();
+        }
+    }
+
 }

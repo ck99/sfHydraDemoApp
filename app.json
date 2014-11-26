@@ -14,7 +14,8 @@
     },
     "env": {
         "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-php",
-        "SYMFONY_ENV": "prod"
+        "SYMFONY_ENV": "prod",
+        "SYMFONY_KERNEL_ROOT_DIR": "/app/app"
     },
     "addons": [
         "cleardb:ignite"
