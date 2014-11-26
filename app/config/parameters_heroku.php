@@ -18,42 +18,48 @@ if(getenv('SYMFONY_ON_HEROKU') || getenv('DYNO')) {
     }
 }
 
-/**
- * Process a list of possible environment variables, returning the first one.
- * @param $envVarList
- * @return null|string
- */
-function getFirstEnvVarFromArray($envVarList) {
-    foreach ($envVarList as $envVar) {
-        if($value = getenv($envVar)) {
-            return $value;
+
+if(!function_exists('getFirstEnvVarFromArray')) {
+    /**
+     * Process a list of possible environment variables, returning the first one.
+     * @param $envVarList
+     * @return null|string
+     */
+    function getFirstEnvVarFromArray($envVarList) {
+        foreach ($envVarList as $envVar) {
+            if($value = getenv($envVar)) {
+                return $value;
+            }
         }
+        return null;
     }
-    return null;
 }
 
-/**
- * Attempt to parse a DSN string into standard parameters
- * @param $dsn
- */
-function populateDatabaseParameters(ContainerBuilder $container, $dsn) {
-    $parameters = parse_url($dsn);
-    $container->setParameter('database_host', $parameters['host']);
-    $container->setParameter('database_user', $parameters['user']);
-    $container->setParameter('database_pass', $parameters['pass']);
-    $container->setParameter('database_name', substr($parameters['path'],1));
 
-    if(array_key_exists('port', $parameters)) {
-        $container->setParameter('database_port', $parameters['port']);
-    }
+if(!function_exists('populateDatabaseParameters')) {
+    /**
+     * Attempt to parse a DSN string into standard parameters
+     * @param $dsn
+     */
+    function populateDatabaseParameters(ContainerBuilder $container, $dsn) {
+        $parameters = parse_url($dsn);
+        $container->setParameter('database_host', $parameters['host']);
+        $container->setParameter('database_user', $parameters['user']);
+        $container->setParameter('database_pass', $parameters['pass']);
+        $container->setParameter('database_name', substr($parameters['path'],1));
 
-    $driver = null;
-    switch($parameters['scheme']) {
-        case 'mysql':
-            $driver = 'pdo_mysql';
-    }
+        if(array_key_exists('port', $parameters)) {
+            $container->setParameter('database_port', $parameters['port']);
+        }
 
-    if(null !== $driver) {
-        $container->setParameter('database_driver', $driver);
+        $driver = null;
+        switch($parameters['scheme']) {
+            case 'mysql':
+                $driver = 'pdo_mysql';
+        }
+
+        if(null !== $driver) {
+            $container->setParameter('database_driver', $driver);
+        }
     }
 }
