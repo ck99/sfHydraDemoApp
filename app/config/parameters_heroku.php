@@ -2,23 +2,6 @@
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-if(getenv('SYMFONY_ON_HEROKU') || getenv('DYNO')) {
-    // setup log output
-    $container->setParameter('logs.production', 'php://stderr');
-
-    // configure database
-    $dsn = getFirstEnvVarFromArray(
-        array(
-            'SYMFONY_DATABASE_DSN',
-            'CLEARDB_DATABASE_URL',
-        )
-    );
-    if((null !== $dsn) && (false !== filter_var($dsn, FILTER_VALIDATE_URL))) {
-        populateDatabaseParameters($container, $dsn);
-    }
-}
-
-
 if(!function_exists('getFirstEnvVarFromArray')) {
     /**
      * Process a list of possible environment variables, returning the first one.
@@ -61,5 +44,21 @@ if(!function_exists('populateDatabaseParameters')) {
         if(null !== $driver) {
             $container->setParameter('database_driver', $driver);
         }
+    }
+}
+
+if(getenv('SYMFONY_ON_HEROKU') || getenv('DYNO')) {
+    // setup log output
+    $container->setParameter('logs.production', 'php://stderr');
+
+    // configure database
+    $dsn = getFirstEnvVarFromArray(
+        array(
+            'SYMFONY_DATABASE_DSN',
+            'CLEARDB_DATABASE_URL',
+        )
+    );
+    if((null !== $dsn) && (false !== filter_var($dsn, FILTER_VALIDATE_URL))) {
+        populateDatabaseParameters($container, $dsn);
     }
 }

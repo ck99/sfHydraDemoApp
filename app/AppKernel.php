@@ -37,7 +37,11 @@ class AppKernel extends Kernel
     public function getRootDir()
     {
         if(getenv('SYMFONY_ON_HEROKU') || getenv('DYNO')) {
-            return getenv('HOME').'/app';
+            if($rootDir = getenv('SYMFONY_KERNEL_ROOT_DIR')) {
+                return $rootDir;
+            } else {
+                return getenv('HOME').'/app';
+            }
         } else {
             return parent::getRootDir();
         }
