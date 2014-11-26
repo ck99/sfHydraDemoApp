@@ -11,6 +11,7 @@ using Hydra with Symfony.
 
 1) Installing the Hydra Issue Tracker Demo
 ------------------------------------------
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/ck99/sfHydraDemoApp)
 
 The recommended way to install the Hydra Issue Tracker demo is to use
 [Composer][3].
