@@ -1,0 +1,23 @@
+{
+    "name": "Hydra Demo App",
+    "description": "Hydra Issue Tracker Demo",
+    "keywords": [
+        "symfony2",
+        "symfony",
+        "rest",
+        "hydra",
+        "json-ld"
+    ],
+    "success_url": "/",
+    "scripts": {
+        "postdeploy": "php app/console doctrine:schema:create"
+    },
+    "env": {
+        "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-php",
+        "SYMFONY_ENV": "prod",
+        "PHP_LOG_PATH": "php://stderr"
+    },
+    "addons": [
+        "cleardb:ignite"
+    ]
+}
