@@ -19,5 +19,5 @@ monolog:
             handler:      nested
         nested:
             type:  stream
-            path:  %logs.production%
+            path:  %log_output%
             level: debug

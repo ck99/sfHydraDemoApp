@@ -14,4 +14,4 @@ parameters:
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    logs.production:   %kernel.logs_dir%/%kernel.environment%.log
+    log_output:        %kernel.logs_dir%/%kernel.environment%.log
